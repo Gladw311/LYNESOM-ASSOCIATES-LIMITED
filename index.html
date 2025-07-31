@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lynesom Associates - Precision Mapping the Future</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated background grid */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 157, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 157, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 5%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 255, 157, 0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        .logo-img:hover {
+            transform: rotate(5deg) scale(1.1);
+            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.3);
+        }
+
+        /* Fallback for when logo image is not available */
+        .logo-img.fallback {
+            background: linear-gradient(135deg, #00ff9d, #00d4ff);
+            font-size: 24px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .logo-main {
+            font-size: 20px;
+            font-weight: 800;
+            color: #00ff9d;
+            text-decoration: none;
+        }
+
+        .logo-sub {
+            font-size: 10px;
+            color: #888;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00ff9d, #00d4ff);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #00ff9d;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #00ff9d;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(ellipse at center, rgba(0, 255, 157, 0.1) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #00ff9d 50%, #00d4ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: #cccccc;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #00ff9d, #00d4ff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out 0.4s both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 255, 157, 0.3);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* Floating elements */
+        .floating-element {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00ff9d;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .floating-element:nth-child(2) { top: 60%; right: 15%; animation-delay: 2s; }
+        .floating-element:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* About Section */
+        .about {
+            padding: 120px 5% 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, #ffffff, #00ff9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .about-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(0, 255, 157, 0.05));
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #00ff9d, #00d4ff);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .about-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 157, 0.1);
+        }
+
+        .about-card h3 {
+            font-size: 1.5rem;
+            color: #00ff9d;
+            margin-bottom: 20px;
+        }
+
+        .about-card p {
+            color: #cccccc;
+            line-height: 1.8;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 80px 5%;
+            background: linear-gradient(135deg, rgba(0, 255, 157, 0.05), rgba(0, 212, 255, 0.05));
+        }
+
+        .services-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 157, 0.1), rgba(0, 212, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover::after {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: scale(1.05);
+            border-color: #00ff9d;
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #00ff9d, #00d4ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-card p {
+            color: #cccccc;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Experience Section */
+        .experience {
+            padding: 80px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .project-timeline {
+            position: relative;
+            margin-top: 60px;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #00ff9d, #00d4ff);
+        }
+
+        .project-item {
+            display: flex;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .project-dot {
+            width: 12px;
+            height: 12px;
+            background: #00ff9d;
+            border-radius: 50%;
+            position: absolute;
+            left: 45px;
+            top: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.5);
+        }
+
+        .project-content {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-left: 80px;
+            flex: 1;
+            transition: all 0.3s ease;
+        }
+
+        .project-content:hover {
+            background: rgba(0, 255, 157, 0.05);
+            transform: translateX(10px);
+        }
+
+        .project-title {
+            font-size: 1.2rem;
+            color: #00ff9d;
+            margin-bottom: 10px;
+        }
+
+        .project-description {
+            color: #cccccc;
+            margin-bottom: 10px;
+        }
+
+        .project-date {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* Enquiry Form Section */
+        .enquiry {
+            padding: 80px 5%;
+            background: linear-gradient(135deg, rgba(0, 255, 157, 0.05), rgba(0, 212, 255, 0.05));
+        }
+
+        .enquiry-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #00ff9d, #00d4ff);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            color: #00ff9d;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00ff9d;
+            background: rgba(0, 255, 157, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #888;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #00ff9d, #00d4ff);
+            color: #000;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto 0;
+            display: block;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 255, 157, 0.3);
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .form-note {
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(0, 255, 157, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .contact-item h3 {
+            color: #00ff9d;
+            margin-bottom: 15px;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 5%;
+            background: linear-gradient(135deg, rgba(0, 255, 157, 0.1), rgba(0, 212, 255, 0.1));
+        }
+
+        .contact-item p {
+            color: #cccccc;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scroll animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background: rgba(10, 10, 10, 0.98);
+                padding: 20px;
+                gap: 20px;
+                backdrop-filter: blur(20px);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .timeline-line {
+                left: 20px;
+            }
+            
+            .project-dot {
+                left: 15px;
+            }
+            
+            .project-content {
+                margin-left: 50px;
+            }
+
+            .about-grid, .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #00ff9d, #00d4ff);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #00d4ff, #00ff9d);
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo-container">
+                <div class="logo-img" id="logoContainer">
+                    <!-- Logo will be loaded here -->
+                </div>
+                <div class="logo-text">
+                    <div class="logo-main">LYNESOM</div>
+                    <div class="logo-sub">Associates Limited</div>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#enquiry">Enquiry</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        
+        <div class="hero-content">
+            <h1>PRECISION MAPPING THE FUTURE</h1>
+            <p class="hero-subtitle">Leading consortium of GIS & Satellite Positioning Experts, Engineering Surveyors, and Environmental Specialists</p>
+            <a href="#about" class="cta-button">Explore Our World</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2 class="section-title animate-on-scroll">Who We Are</h2>
+        <div class="about-grid">
+            <div class="about-card animate-on-scroll">
+                <h3>Our Mission</h3>
+                <p>To be the leading technical firm providing Planning, Land surveying, GIS, topographical and engineering survey solutions to our clients with unmatched precision and innovation.</p>
+            </div>
+            <div class="about-card animate-on-scroll">
+                <h3>Expert Consortium</h3>
+                <p>A powerful alliance of GIS & Satellite Positioning Experts, Engineering Surveyors, Hydrographical Surveyors, Environmentalists and Civil Engineers.</p>
+            </div>
+            <div class="about-card animate-on-scroll">
+                <h3>Innovation Driven</h3>
+                <p>Leveraging cutting-edge technology in Geographic Information Management Systems, satellite positioning and navigation expertise for superior project outcomes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="services-container">
+            <h2 class="section-title animate-on-scroll">Our Capabilities</h2>
+            <div class="services-grid">
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">🗺️</div>
+                    <h3>GIS & Mapping Systems</h3>
+                    <p>Advanced Geographic Information Management Systems design and development for comprehensive spatial data analysis.</p>
+                </div>
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">📡</div>
+                    <h3>Satellite Positioning</h3>
+                    <p>Precision satellite positioning and navigation expertise using state-of-the-art GNSS technology.</p>
+                </div>
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">🏗️</div>
+                    <h3>Engineering Surveying</h3>
+                    <p>Comprehensive engineering surveying for civil engineering design and construction projects.</p>
+                </div>
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">🌊</div>
+                    <h3>Hydrographical Surveying</h3>
+                    <p>Specialized surveying services for projects near water bodies with precision depth mapping.</p>
+                </div>
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">🌱</div>
+                    <h3>Environmental Assessment</h3>
+                    <p>Comprehensive Environmental Impact Assessment services ensuring sustainable development.</p>
+                </div>
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">🏢</div>
+                    <h3>Civil Engineering</h3>
+                    <p>Complete civil engineering solutions from planning to execution for infrastructure projects.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <h2 class="section-title animate-on-scroll">Project Excellence</h2>
+        <div class="project-timeline">
+            <div class="timeline-line"></div>
+            
+            <div class="project-item animate-on-scroll">
+                <div class="project-dot"></div>
+                <div class="project-content">
+                    <h3 class="project-title">Kamulu Sub-division</h3>
+                    <p class="project-description">Boundary confirmation and sub-division survey: cadastral survey on LR. No. NAIROBI/BLOCK 118/44 in Nairobi County.</p>
+                    <p class="project-date">May 2025</p>
+                </div>
+            </div>
+
+            <div class="project-item animate-on-scroll">
+                <div class="project-dot"></div>
+                <div class="project-content">
+                    <h3 class="project-title">Kenya Pipeline Topographical Survey</h3>
+                    <p class="project-description">Comprehensive topographic survey in Nakuru County, Kabarak for critical infrastructure mapping.</p>
+                    <p class="project-date">May 2024</p>
+                </div>
+            </div>
+
+            <div class="project-item animate-on-scroll">
+                <div class="project-dot"></div>
+                <div class="project-content">
+                    <h3 class="project-title">Mt. Kenya Game Range</h3>
+                    <p class="project-description">Long-term boundary confirmation and correction survey: cadastral survey on LR. No. 10776/2 in Laikipia County.</p>
+                    <p class="project-date">Nov. 2014 - Ongoing</p>
+                </div>
+            </div>
+
+            <div class="project-item animate-on-scroll">
+                <div class="project-dot"></div>
+                <div class="project-content">
+                    <h3 class="project-title">Sio Basin Irrigation Project</h3>
+                    <p class="project-description">Massive survey project in Busia County covering 4450 Ha through 45 km stretch including topographic work and land acquisition.</p>
+                    <p class="project-date">Nov. 2013 - Ongoing</p>
+                </div>
+            </div>
+
+            <div class="project-item animate-on-scroll">
+                <div class="project-dot"></div>
+                <div class="project-content">
+                    <h3 class="project-title">Lake Nakuru National Park</h3>
+                    <p class="project-description">Topographic mapping and development of tourist information system for Kenya's premier national park.</p>
+                    <p class="project-date">January - Sept 2001</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enquiry Section -->
+    <section id="enquiry" class="enquiry">
+        <div class="enquiry-container">
+            <h2 class="section-title animate-on-scroll">Get In Touch</h2>
+            <p class="animate-on-scroll" style="color: #cccccc; font-size: 1.2rem; text-align: center; margin-bottom: 20px;">
+                Ready to discuss your surveying and mapping needs? Send us your project details.
+            </p>
+            
+            <div class="form-container animate-on-scroll">
+                <form id="enquiryForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required placeholder="Your first name">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" required placeholder="Your last name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+254 xxx xxx xxx">
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company/Organization</label>
+                            <input type="text" id="company" name="company" placeholder="Your company name">
+                        </div>
+                        <div class="form-group">
+                            <label for="serviceType">Service Required *</label>
+                            <select id="serviceType" name="serviceType" required>
+                                <option value="">Select a service</option>
+                                <option value="gis-mapping">GIS & Mapping Systems</option>
+                                <option value="satellite-positioning">Satellite Positioning</option>
+                                <option value="engineering-surveying">Engineering Surveying</option>
+                                <option value="hydrographical-surveying">Hydrographical Surveying</option>
+                                <option value="environmental-assessment">Environmental Assessment</option>
+                                <option value="civil-engineering">Civil Engineering</option>
+                                <option value="topographical-survey">Topographical Survey</option>
+                                <option value="boundary-survey">Boundary Survey</option>
+                                <option value="subdivision">Land Subdivision</option>
+                                <option value="other">Other (please specify in message)</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="projectLocation">Project Location</label>
+                            <input type="text" id="projectLocation" name="projectLocation" placeholder="County, specific area, or coordinates">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="message">Project Details *</label>
+                            <textarea id="message" name="message" rows="6" required placeholder="Please describe your project requirements, timeline, land size, and any specific needs..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Send Enquiry</button>
+                    
+                    <p class="form-note">
+                        * Required fields<br>
+                        We'll respond to your enquiry within 24 hours during business days.<br>
+                        For urgent matters, please call us directly at +254 721 726634.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="contact-container">
+            <h2 class="section-title animate-on-scroll">Connect With Us</h2>
+            <p class="animate-on-scroll" style="color: #cccccc; font-size: 1.2rem; margin-bottom: 40px;">Ready to start your next precision mapping project?</p>
+            
+            <div class="contact-info">
+                <div class="contact-item animate-on-scroll">
+                    <h3>📍 Address</h3>
+                    <p>P.O. Box 53916<br>00200 City Square<br>Nairobi, Kenya</p>
+                </div>
+                <div class="contact-item animate-on-scroll">
+                    <h3>📞 Phone</h3>
+                    <p>+254 721 726634<br>+254 736 170157</p>
+                </div>
+                <div class="contact-item animate-on-scroll">
+                    <h3>✉️ Email</h3>
+                    <p>lynesom.ass@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Initialize logo
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoContainer = document.getElementById('logoContainer');
+            
+            // Create a professional logo using SVG
+            const logoSVG = `
+                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00ff9d"/>
+                            <stop offset="100%" style="stop-color:#00d4ff"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="50" height="50" rx="10" fill="url(#logoGradient)"/>
+                    <text x="25" y="32" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#000">L</text>
+                </svg>
+            `;
+            
+            logoContainer.innerHTML = logoSVG;
+        });
+
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    mobileMenuBtn.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+                });
+
+                // Close mobile menu when clicking on a link
+                document.querySelectorAll('.nav-links a').forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.textContent = '☰';
+                    });
+                });
+            }
+        });
+
+        // Form submission handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const enquiryForm = document.getElementById('enquiryForm');
+            
+            if (enquiryForm) {
+                enquiryForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Get form data
+                    const formData = new FormData(this);
+                    const formObject = {};
+                    formData.forEach(function(value, key) {
+                        formObject[key] = value;
+                    });
+                    
+                    // Create mailto link with form data
+                    const subject = encodeURIComponent('Enquiry: ' + (formObject.serviceType || 'General Inquiry'));
+                    const body = encodeURIComponent(
+                        'Name: ' + formObject.firstName + ' ' + formObject.lastName + '\n' +
+                        'Email: ' + formObject.email + '\n' +
+                        'Phone: ' + (formObject.phone || 'Not provided') + '\n' +
+                        'Company: ' + (formObject.company || 'Not provided') + '\n' +
+                        'Service Required: ' + formObject.serviceType + '\n' +
+                        'Project Location: ' + (formObject.projectLocation || 'Not specified') + '\n\n' +
+                        'Project Details:\n' + formObject.message + '\n\n' +
+                        '---\n' +
+                        'This enquiry was sent via the Lynesom Associates website.'
+                    );
+                    
+                    const mailtoLink = 'mailto:lynesom.ass@gmail.com?subject=' + subject + '&body=' + body;
+                    
+                    // Open email client
+                    window.location.href = mailtoLink;
+                    
+                    // Show success message
+                    alert('Thank you for your enquiry! Your email client should open with the enquiry details. If it doesn\'t open automatically, please email us directly at lynesom.ass@gmail.com');
+                    
+                    // Reset form
+                    this.reset();
+                });
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+
+        // Scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.animate-on-scroll').forEach(function(el) {
+                observer.observe(el);
+            });
+        });
+
+        // Navigation background change on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (nav) {
+                if (window.scrollY > 100) {
+                    nav.style.background = 'rgba(10, 10, 10, 0.98)';
+                } else {
+                    nav.style.background = 'rgba(10, 10, 10, 0.95)';
+                }
+            }
+        });
+
+        // Add floating animation to service cards
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.service-card').forEach(function(card, index) {
+                card.style.animationDelay = (index * 0.2) + 's';
+            });
+        });
+
+        // Add interactive hover effects
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.project-content').forEach(function(content) {
+                content.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(10px) scale(1.02)';
+                });
+                
+                content.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(10px) scale(1)';
+                });
+            });
+        });
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-content');
+            if (hero) {
+                hero.style.transform = 'translateY(' + (scrolled * 0.5) + 'px)';
+            }
+        });
+    </script>
+</body>
+</html>
